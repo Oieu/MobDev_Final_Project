@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbRef = FirebaseDatabase.getInstance("https://final-project-1d01f-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbRef = FirebaseDatabase.getInstance("https://finalproject-848e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("tasks");
 
         recyclerView = findViewById(R.id.taskrecyclerview);

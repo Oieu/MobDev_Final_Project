@@ -10,7 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
@@ -19,7 +23,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     public TaskAdapter(List<Task> taskList) {
         this.taskList = taskList;
-        this.dbRef = FirebaseDatabase.getInstance("https://final-project-1d01f-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        this.dbRef = FirebaseDatabase.getInstance("https://finalproject-848e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("tasks");
     }
 
@@ -35,6 +39,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = taskList.get(position);
         holder.taskTitle.setText(task.getTaskTitle());
+        holder.taskDescription.setText(task.getTaskDescription());
+
+
+        if (task.getTaskCreated() != 0) {
+            Date date = new Date(task.getTaskCreated());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            String dateString = dateFormat.format(date);
+            holder.taskDate.setText(dateString);
+        } else {
+            holder.taskDate.setText("No Date");
+        }
+
         holder.cbTaskCompleted.setChecked(task.isDone());
 
         holder.cbTaskCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -54,13 +70,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         });
     }
 
+
+
     @Override
     public int getItemCount() {
         return taskList.size();
     }
 
     static class TaskViewHolder extends RecyclerView.ViewHolder {
-        TextView taskTitle;
+        TextView taskTitle, taskDescription, taskDate;
         CheckBox cbTaskCompleted;
         Button btnDeleteTask;
 
@@ -69,6 +87,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             taskTitle = itemView.findViewById(R.id.tasktitle);
             cbTaskCompleted = itemView.findViewById(R.id.cbtaskcompleted);
             btnDeleteTask = itemView.findViewById(R.id.btndeletetask);
+            taskDescription = itemView.findViewById(R.id.taskdesc);
+            taskDate = itemView.findViewById(R.id.taskdatecreate);
         }
     }
 }
