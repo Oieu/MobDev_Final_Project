@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbRef = FirebaseDatabase.getInstance("https://finalproject-848e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbRef = FirebaseDatabase.getInstance(FirebaseConfig.dbURL)
                 .getReference("tasks");
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomnav);
