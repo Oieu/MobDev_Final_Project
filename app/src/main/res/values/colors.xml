@@ -5,4 +5,5 @@
     <color name="backgroundColor">#F5F5F5</color>
     <color name="textPrimary">#212121</color>
     <color name="primaryColor">#6200EE</color>
+    <color name="secondaryColor">#000000</color>
 </resources>
