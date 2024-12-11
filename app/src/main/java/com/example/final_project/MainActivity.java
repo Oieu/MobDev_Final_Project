@@ -2,10 +2,17 @@ package com.example.final_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.final_project.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,12 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private TaskAdapter taskAdapter;
     private List<Task> taskList;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbRef = FirebaseDatabase.getInstance("https://finalproject-848e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbRef = FirebaseDatabase.getInstance(FirebaseConfig.dbURL)
                 .getReference("tasks");
 
         recyclerView = findViewById(R.id.taskrecyclerview);
@@ -42,7 +51,45 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AddTask.class);
             startActivity(intent);
         });
+
+        //    Navigation for bottomnav
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnav);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    return true;
+
+                case R.id.navigation_calendar:
+                    // Navigate to CalendarPage
+                    startActivity(new Intent(getApplicationContext(), CalendarPage.class));
+                    finish();
+                    return true;
+
+//                case R.id.navigation_settings:
+//                    // Navigate to SettingsPage
+//                    startActivity(new Intent(getApplicationContext(), SettingsPage.class));
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                    finish();
+//                    return true;
+//
+//                case R.id.navigation_profile:
+//                    // Navigate to ProfilePage
+//                    startActivity(new Intent(getApplicationContext(), ProfilePage.class));
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                    finish();
+//                    return true;
+
+                default:
+                    return false;
+            }
+        });
+
+//
+
     }
+
 
     private void fetchTasks() {
         dbRef.addValueEventListener(new ValueEventListener() {

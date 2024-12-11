@@ -23,7 +23,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     public TaskAdapter(List<Task> taskList) {
         this.taskList = taskList;
-        this.dbRef = FirebaseDatabase.getInstance("https://finalproject-848e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        this.dbRef = FirebaseDatabase.getInstance(FirebaseConfig.dbURL)
                 .getReference("tasks");
     }
 
