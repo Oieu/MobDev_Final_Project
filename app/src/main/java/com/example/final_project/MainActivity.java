@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         dbRef = FirebaseDatabase.getInstance("https://finalproject-848e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("tasks");
 
+        BottomNavigationView bottomNav = findViewById(R.id.bottomnav);
         recyclerView = findViewById(R.id.taskrecyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -49,7 +50,25 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AddTask.class);
             startActivity(intent);
         });
+
+
+        bottomNav.setSelectedItemId(R.id.navigation_home);
+        bottomNav.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    return true;
+                case R.id.navigation_calendar:
+                    startActivity(new Intent(getApplicationContext(), CalendarPage.class));
+                    finish();
+                    return true;
+                default:
+                    return false;
+            }
+        });
+
     }
+
+
 
     private void fetchTasks() {
         dbRef.addValueEventListener(new ValueEventListener() {
