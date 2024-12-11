@@ -5,7 +5,7 @@
     android:padding="16dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilTaskTitle"
+        android:id="@+id/tiltasktitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Task Title"
@@ -14,35 +14,37 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTaskTitle"
+            android:id="@+id/ettasktitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilTaskDescription"
+        android:id="@+id/tiltaskdescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Task Description"
-        app:layout_constraintTop_toBottomOf="@id/tilTaskTitle"
+        app:layout_constraintTop_toBottomOf="@id/tiltasktitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTaskDescription"
+            android:id="@+id/ettaskdescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="4"
-            android:gravity="top" />
+            android:gravity="top"
+            android:inputType="textMultiLine" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSaveTask"
+        android:id="@+id/btnsavetask"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Save Task"
-        app:layout_constraintTop_toBottomOf="@id/tilTaskDescription"
+        app:layout_constraintTop_toBottomOf="@id/tiltaskdescription"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp" />
