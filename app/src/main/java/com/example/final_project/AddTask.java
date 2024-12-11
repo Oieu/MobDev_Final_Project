@@ -9,6 +9,10 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AddTask extends AppCompatActivity {
 
     private TextInputEditText etTaskTitle, etTaskDescription;
@@ -23,7 +27,7 @@ public class AddTask extends AppCompatActivity {
         etTaskTitle = findViewById(R.id.ettasktitle);
         etTaskDescription = findViewById(R.id.ettaskdescription);
         btnSaveTask = findViewById(R.id.btnsavetask);
-        dbRef = FirebaseDatabase.getInstance("https://final-project-1d01f-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbRef = FirebaseDatabase.getInstance("https://finalproject-848e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("tasks");
 
         btnSaveTask.setOnClickListener(v -> saveTaskToFirebase());
@@ -32,6 +36,7 @@ public class AddTask extends AppCompatActivity {
     private void saveTaskToFirebase() {
         String taskTitle = etTaskTitle.getText().toString().trim();
         String taskDescription = etTaskDescription.getText().toString().trim();
+        long currentDate = new Date().getTime();
 
         if (taskTitle.isEmpty() || taskDescription.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
@@ -44,7 +49,7 @@ public class AddTask extends AppCompatActivity {
             return;
         }
 
-        Task task = new Task(taskId, taskTitle, taskDescription, false);
+        Task task = new Task(taskId, taskTitle, taskDescription, currentDate, false);
         dbRef.child(taskId).setValue(task)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(AddTask.this, "Task added", Toast.LENGTH_SHORT).show();
@@ -52,5 +57,6 @@ public class AddTask extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> Toast.makeText(AddTask.this, "Error adding task", Toast.LENGTH_SHORT).show());
     }
+
 }
 

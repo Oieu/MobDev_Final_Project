@@ -1,18 +1,22 @@
 package com.example.final_project;
 
+import java.util.Date;
+
 public class Task {
 
     private String taskId;
     private String taskTitle;
     private String taskDescription;
+    private long taskCreated;
     private boolean isCompleted;
 
     public Task() {}
 
-    public Task(String taskId, String taskTitle, String taskDescription, boolean isCompleted) {
+    public Task(String taskId, String taskTitle, String taskDescription, long taskCreated, boolean isCompleted) {
         this.taskId = taskId;
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
+        this.taskCreated = taskCreated;
         this.isCompleted = isCompleted;
     }
 
@@ -38,6 +42,14 @@ public class Task {
 
     public void setTaskDescription(String taskDescription) {
         this.taskDescription = taskDescription;
+    }
+
+    public long getTaskCreated() {
+        return taskCreated;
+    }
+
+    public void setTaskCreated(long taskCreated) {
+        this.taskCreated = taskCreated;
     }
 
     public boolean isDone() {
