@@ -27,7 +27,7 @@ public class AddTask extends AppCompatActivity {
         etTaskTitle = findViewById(R.id.ettasktitle);
         etTaskDescription = findViewById(R.id.ettaskdescription);
         btnSaveTask = findViewById(R.id.btnsavetask);
-        dbRef = FirebaseDatabase.getInstance("https://finalproject-848e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbRef = FirebaseDatabase.getInstance(FirebaseConfig.dbURL)
                 .getReference("tasks");
 
         btnSaveTask.setOnClickListener(v -> saveTaskToFirebase());

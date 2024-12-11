@@ -2,12 +2,13 @@ package com.example.final_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.final_project.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private TaskAdapter taskAdapter;
     private List<Task> taskList;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         dbRef = FirebaseDatabase.getInstance("https://finalproject-848e0-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("tasks");
 
+        BottomNavigationView bottomNav = findViewById(R.id.bottomnav);
         recyclerView = findViewById(R.id.taskrecyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -48,26 +52,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomnav);
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-
-                        return true;
-                    case R.id.navigation_account:
-
-                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                        return true;
-                    default:
-                        return false;
-                }
+        bottomNav.setSelectedItemId(R.id.navigation_home);
+        bottomNav.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    return true;
+                case R.id.navigation_calendar:
+                    startActivity(new Intent(getApplicationContext(), CalendarPage.class));
+                    finish();
+                    return true;
+                default:
+                    return false;
             }
         });
 
-
     }
+
+
 
     private void fetchTasks() {
         dbRef.addValueEventListener(new ValueEventListener() {
